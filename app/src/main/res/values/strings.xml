@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Meeting Scheduler</string>
+    <string name="activity_prev">PREV</string>
+    <string name="activity_next">NEXT</string>
+    <string name="activity_button_text">Schedule comapny meeting</string>
+    <string name="activity_button_meeting">Submit</string>
+    <string name="meeting_activity_top_text">SCHEDULE A MEETING</string>
+    <string name="activity_back">BACK</string>
+
+</resources>
