@@ -2,6 +2,7 @@ package vinsol.com.meetingscheduler;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -34,6 +36,7 @@ public class ScheduleMeetingActivity extends AppCompatActivity implements View.O
 
     private EditText dateSelector, startTimeSelector, endTimeSelector, description;
     Button submit;
+    TextView back_button;
     Calendar calendar;
     DatePickerDialog.OnDateSetListener datePickerDialog;
     Calendar setStartTime;
@@ -43,14 +46,18 @@ public class ScheduleMeetingActivity extends AppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_meeting);
+
         dateSelector = (EditText) findViewById(R.id.date_selector);
         startTimeSelector = (EditText) findViewById(R.id.start_time_selector);
         endTimeSelector = (EditText) findViewById(R.id.end_time_selector);
+        back_button = (TextView) findViewById(R.id.activity_prev_option);
         submit = (Button) findViewById(R.id.button_submit);
-        submit.setOnClickListener(this);
+
         dateSelector.setOnClickListener(this);
         startTimeSelector.setOnClickListener(this);
         endTimeSelector.setOnClickListener(this);
+        back_button.setOnClickListener(this);
+        submit.setOnClickListener(this);
 
     }
 
@@ -84,6 +91,7 @@ public class ScheduleMeetingActivity extends AppCompatActivity implements View.O
 
             }
             break;
+
             case R.id.start_time_selector: {
                 setStartTime = Calendar.getInstance();
                 int hour = setStartTime.get(Calendar.HOUR_OF_DAY);
@@ -99,6 +107,7 @@ public class ScheduleMeetingActivity extends AppCompatActivity implements View.O
 
             }
             break;
+
             case R.id.end_time_selector: {
                 setEndTime = Calendar.getInstance();
                 int hour = setEndTime.get(Calendar.HOUR_OF_DAY);
@@ -115,13 +124,19 @@ public class ScheduleMeetingActivity extends AppCompatActivity implements View.O
             }
             break;
             case R.id.button_submit: {
-                MakeApiCall(dateSelector.getText().toString());
+                MakeApiCallAndCheckSchedule(dateSelector.getText().toString());
 
             }
+            break;
+
+            case R.id.activity_prev_option:
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
         }
     }
 
-    public void MakeApiCall(final String date) {
+    public void MakeApiCallAndCheckSchedule(final String date) {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<Meeting[]> call = apiInterface.getMeetingSchedularResponse(date);
         call.enqueue(new Callback<Meeting[]>() {
@@ -131,10 +146,13 @@ public class ScheduleMeetingActivity extends AppCompatActivity implements View.O
                     Meeting[] meetingArray = response.body();
                     for (int i = 0; i < meetingArray.length; i++) {
                         Meeting aMeetingArray = meetingArray[i];
+
                         int scheduledStartTime = Integer.parseInt(startTimeSelector.getText().toString().split(":")[0]);
                         int scheduledEndTime = Integer.parseInt(startTimeSelector.getText().toString().split(":")[0]);
                         int fetchedStartTime = Integer.parseInt(aMeetingArray.getStartTime().split(":")[0]);
                         int fetchedEndTime = Integer.parseInt(aMeetingArray.getEndTime().split(":")[0]);
+
+
                         if (scheduledStartTime < fetchedStartTime && scheduledEndTime < fetchedEndTime) {
                             Toast.makeText(ScheduleMeetingActivity.this, "Meeting Booked", Toast.LENGTH_SHORT).show();
                             break;
@@ -148,9 +166,13 @@ public class ScheduleMeetingActivity extends AppCompatActivity implements View.O
                         }
 
                     }
+/*
                     Toast.makeText(ScheduleMeetingActivity.this, "Success", Toast.LENGTH_SHORT).show();
+*/
                 } else {
+/*
                     Toast.makeText(ScheduleMeetingActivity.this, "Something Wrong", Toast.LENGTH_SHORT).show();
+*/
                 }
             }
 
@@ -160,6 +182,12 @@ public class ScheduleMeetingActivity extends AppCompatActivity implements View.O
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
     }
 }
 

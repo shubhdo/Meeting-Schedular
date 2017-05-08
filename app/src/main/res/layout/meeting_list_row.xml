@@ -21,15 +21,31 @@
                 android:id="@+id/text_start_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="Start time" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_margin="5dp"
+                android:background="@color/item_team_divider" />
 
             <TextView
                 android:id="@+id/text_end_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="end time" />
 
         </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/item_team_divider" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -41,12 +57,20 @@
                 android:id="@+id/text_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="Description" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/item_team_divider" />
 
             <TextView
                 android:id="@+id/text_attendee"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="Attending" />
         </LinearLayout>
 

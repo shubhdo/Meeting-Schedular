@@ -33,7 +33,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MyViewHo
         holder.description.setText(meetingsArray[position].getDescription());
         StringBuilder multipleAttendee = new StringBuilder();
         for (int i=0;i<meetingsArray[position].getParticipants().size();i++)
-            multipleAttendee.append("  "+meetingsArray[position].getParticipants().get(i));
+            multipleAttendee.append(meetingsArray[position].getParticipants().get(i)+"  ");
         holder.attendee.setText(multipleAttendee);
     }
 

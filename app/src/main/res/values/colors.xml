@@ -8,4 +8,5 @@
     <color name="top_bar_color">#159f83</color>
     <color name="white">#ffffff</color>
     <color name="item_divider">#767676</color>
+    <color name="item_team_divider">#bebebe</color>
 </resources>

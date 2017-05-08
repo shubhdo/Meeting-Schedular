@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingStart="15dp"
             android:text="@string/activity_prev"
             android:textColor="@color/white"
             android:textSize="@dimen/top_bar_text" />
@@ -31,7 +32,6 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Date"
-
             android:textColor="@color/white"
             android:textSize="@dimen/top_bar_text" />
 
@@ -41,16 +41,25 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="end"
+            android:paddingEnd="15dp"
             android:text="@string/activity_next"
+
             android:textColor="@color/white"
             android:textSize="@dimen/top_bar_text" />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <Button
         android:id="@+id/button_schedule_meeting"
@@ -61,4 +70,5 @@
         android:background="@drawable/button_style"
         android:text="@string/activity_button_text"
         android:textColor="@color/white" />
+
 </LinearLayout>
